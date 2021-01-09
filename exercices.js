@@ -150,9 +150,7 @@ console.log(getHashTags('The Helicopter Is Yellow and Greenish'));
 
 const array1 = [0, 2, 4, 6, 8, 8];
 
-const removeDuplicates = (array) => {
-    return newArray = [...new Set(array)];
-}
+const removeDuplicates = (array) => { return [...new Set(array)]; }
 console.log('Test Remove Duplicates : ')
 console.log(removeDuplicates(array1));
 
