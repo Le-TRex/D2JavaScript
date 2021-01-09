@@ -65,6 +65,19 @@ const findLongestWord = (sentence) => {
 
 //----------------------------------------------------------------------
 //Mapi
+class Mapy {
+    constructor([[key1, value1], [key2, value2]]) {
+        this.mapyArray = [[key1, value1], [key2, value2]];
+
+        this.mapyObject = Object.fromEntries(this.mapyArray);
+    }
+
+
+}
+
+
+
+
 
 const Mapi = function([[key1, value1], [key2, value2]]) {
     this.array = [[key1, value1], [key2, value2]];
@@ -73,14 +86,14 @@ const Mapi = function([[key1, value1], [key2, value2]]) {
 
     this.set = function (key, value) {
         if (!this.has(key)) {
-            this.size +=1;
+            this.size ++;
         }
         this.mapiObject[key]=value;
     }
 
     this.delete = function (key) {
         delete this.mapiObject[key];
-        this.size -=1;
+        this.size --;
     }
 
     this.get = function (key) {
@@ -100,6 +113,11 @@ const Mapi = function([[key1, value1], [key2, value2]]) {
     }
 }
 
+const myMapi = new Mapi([[1, 'Begonia'], [2, 'Rosier']]);
+
+console.log('Test Mapi : ')
+console.log(myMapi);
+console.log('[{1: Begonia}, {2: Rosier}]');
 //----------------------------------------------------------------------
 //Prop access -- bonus
 
@@ -181,23 +199,30 @@ console.log(arrayDiff(array1, array2));
 //----------------------------------------------------------------------
 //Combination
 
-const array = [2, 12, 2];
+//const array = [2, 12, 2];
 
-function multiplicates(array) {
-    let multiplicator = 1;
-    let result = 1;
+// function multiplicates(array) {
+//     let multiplicator = 1;
+//     let result = 1;
+//
+//     for (let i = 0; i < array.length ; i++) {
+//         let operande = array[i];
+//         result = operande * multiplicator;
+//         multiplicator = result;
+//     }
+//     return result;
+// }
 
-    for (let i = 0; i < array.length ; i++) {
-        let operande = array[i];
-        result = operande * multiplicator;
-        multiplicator = result;
-    }
-    return result;
+
+function combination(...numbers) {
+    return numbers.reduce((accumulator, currentValue) => accumulator * currentValue);
 }
 
-console.log('Test combination : ');
-console.log(multiplicates(array));
+//console.log('Test combination : ');
+//console.log(multiplicates(array));
 
+console.log('Test Combination - reducer : ');
+console.log(combination(2, 12, 2, 2));
 //----------------------------------------------------------------------
 //Fiscal Code
 
