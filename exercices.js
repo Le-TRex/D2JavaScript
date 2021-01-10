@@ -233,51 +233,45 @@ const matt = new Person("Matt", "Edabit", "M", "1/1/1900");
 const helen = new Person("Helen", "Yu", "F", "1/12/1950");
 const mickey = new Person("Mickey", "Mouse", "M", "12/1/1928");
 
-const fiscalCode = (person) => {
-    //REGEX + CONSTANT VARIABLES-----------------------------------------------
-    const regexVowels = /[AEIOU]/g;
-    const regexConsonants = /[BCDFGHJKLMNPQRSTVWXYZ]/g;
-    const xLetters=['X','X'];
-    const surname = person.surname;
-    const name = person.name;
-    const expectedLengthOfSurnameAndNameCode = 3;
+//REGEX + CONSTANT VARIABLES-----------------------------------------------
+const regexVowels = /[AEIOU]/g;
+const regexConsonants = /[BCDFGHJKLMNPQRSTVWXYZ]/g;
+const xLetters=['X','X'];
+const expectedLengthOfSurnameAndNameCode = 3;
 
-    //FUNCTIONS----------------------------------------------------------------
-    const transformToUpperCaseElementsThatMatchWithRegex = (word, regex) => {
-        return word.toUpperCase().match(regex);
-    }
+//FUNCTIONS--------------------------------------------------------------------
+const transformToUpperCaseElementsThatMatchWithRegex = (word, regex) => {
+    return word.toUpperCase().match(regex);
+}
 
-    const createSurnameAndNameCode = (array) => {
-        return array.slice(0,expectedLengthOfSurnameAndNameCode).join('');
-    }
+const createSurnameAndNameCode = (array) => {
+    return array.slice(0,expectedLengthOfSurnameAndNameCode).join('');
+}
 
-    //SURNAME------------------------------------------------------------------
-    const processedSurname = transformToUpperCaseElementsThatMatchWithRegex(surname, regexConsonants)
-        .concat(transformToUpperCaseElementsThatMatchWithRegex(surname, regexVowels))
-        .concat(xLetters);
-
-    const surnameCode = createSurnameAndNameCode(processedSurname);
-
-    console.log(`code nom de famille : ${surnameCode}`);
-
-    //NAME---------------------------------------------------------------------
+const generateCodeFromName = (name) => {
     let nameConsonants = transformToUpperCaseElementsThatMatchWithRegex(name, regexConsonants);
     if (nameConsonants.length > 3) {
-        nameConsonants = [nameConsonants[0], nameConsonants[2], nameConsonants[3]];
+        nameConsonants.splice(1,1);
     }
-    // console.log(`consonnes du prénom 1, 3 et 4 : ${nameConsonants}`);
 
     const processedName = nameConsonants
         .concat(transformToUpperCaseElementsThatMatchWithRegex(name, regexVowels))
         .concat(xLetters);
 
-    const nameCode = createSurnameAndNameCode(processedName);
-    console.log(`code prenom : ${nameCode}`);
+    return createSurnameAndNameCode(processedName);
+}
 
-    //FISCAL CODE--------------------------------------------------------------
-    const fiscalCode = surnameCode + nameCode;
-    console.log(`fiscalCode : ${fiscalCode}`);
+const generateCodeFromSurname = (surname) => {
+    const processedSurname = transformToUpperCaseElementsThatMatchWithRegex(surname, regexConsonants)
+        .concat(transformToUpperCaseElementsThatMatchWithRegex(surname, regexVowels))
+        .concat(xLetters);
 
+    return createSurnameAndNameCode(processedSurname);
+}
+
+const fiscalCode = (person) => {
+    return generateCodeFromSurname(person.surname)
+        .concat(generateCodeFromName(person.name));
 }
 
 console.log('test fiscalCode : ');
