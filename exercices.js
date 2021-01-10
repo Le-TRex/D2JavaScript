@@ -231,7 +231,7 @@ const Person = function(name, surname, gender, dob) {
 
 const matt = new Person("Matt", "Edabit", "M", "1/1/1900");
 const helen = new Person("Helen", "Yu", "F", "1/12/1950");
-const mickey = new Person("Mickey", "Mouse", "M", "12/1/1928");
+const mickey = new Person("Mickey", "Mouse", "M", "16/1/1928");
 
 //REGEX + CONSTANT VARIABLES-----------------------------------------------
 const regexVowels = /[AEIOU]/g;
@@ -269,9 +269,44 @@ const generateCodeFromSurname = (surname) => {
     return createSurnameAndNameCode(processedSurname);
 }
 
+const generateCodeFromBOBAndGender = (dob, gender) => {
+    const splitDOB = dob.split('/');
+    const dateOfBirth = new Date(splitDOB[2], (splitDOB[1]-1), splitDOB[0]);
+    const codeByMonth = new Map([
+        [0, 'A'], //JANVIER
+        [1, 'B'], //FEVRIER
+        [2, 'C'], //MARS
+        [3, 'D'], //AVRIL
+        [4, 'E'], //MAI
+        [5, 'H'], //JUIN
+        [6, 'L'], //JUILLET
+        [7, 'M'], //AOUT
+        [8, 'P'], //SEPTEMBRE
+        [9, 'R'], //OCTOBRE
+        [10, 'S'], //NOVEMBRE
+        [11, 'T'] //DECEMBRE
+    ]);
+
+    const yearCode = dateOfBirth.getFullYear().toString().slice(2);
+    const monthCode = codeByMonth.get(dateOfBirth.getMonth());
+
+    var genderDependantDayCode = '';
+
+    if (gender === 'M' && dateOfBirth.getDate()<10) {
+        genderDependantDayCode = '0'.concat(dateOfBirth.getDate().toString());
+    }else if (gender === 'F'){
+        genderDependantDayCode = (40 + dateOfBirth.getDate()).toString();
+    }else{
+        genderDependantDayCode = dateOfBirth.getDate();
+    }
+
+    return yearCode.concat(monthCode).concat(genderDependantDayCode);
+}
+
 const fiscalCode = (person) => {
     return generateCodeFromSurname(person.surname)
-        .concat(generateCodeFromName(person.name));
+        .concat(generateCodeFromName(person.name))
+        .concat(generateCodeFromBOBAndGender(person.dob, person.gender));
 }
 
 console.log('test fiscalCode : ');
@@ -286,6 +321,24 @@ console.log(fiscalCode(mickey));
 //----------------------------------------------------------------------
 //Least Common Multiple
 
+const gcd = (a, b) => {
+    if (b) {
+        return gcd(b, a%b);
+    }else{
+        return a;
+    }
+}
+
+const ppcm = (a, b) => {
+    return (a*b)/gcd(a,b);
+}
+
+const lcm = (...numbers) => {
+    return numbers.reduce((accumulator, currentValue) => ppcm(accumulator, currentValue));
+}
+console.log(lcm(1,2,3,4,5,6));
+//console.log(gcd(60,36));
+//console.log(ppcm(420,8));
 //----------------------------------------------------------------------
 //Merge -- bonus
 
