@@ -1,24 +1,19 @@
-//TODO refacto les "return true" pour mettre des ternaires ou des "return condition(s)"
-
 //PARTIE I
-//----------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //Revert
 
 const reverse = (string) => {
-    var splitString = string.split('');
-    var reverseArray = splitString.reverse();
-    var reversedArray = reverseArray.join('');
-    return reversedArray;
+    return string.split('').reverse().join('');
 }
 
-//----------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //UcFirst
 
 const ucFirst = (word) => {
     return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
-//----------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //Capitalize
 
 const capitalize = (sentence) => {
@@ -29,7 +24,7 @@ const capitalize = (sentence) => {
     return splitSentence.join(' ');
 }
 
-//----------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //PascalCase
 
 const pascalCase = (sentence) => {
@@ -40,19 +35,16 @@ const pascalCase = (sentence) => {
     return splitSentence.join('');
 }
 
-//----------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //Palindrome
 
 const palindrome = (string) => {
     var stringToCheck = string;
     var reversedString =  reverse(string);
-    if (stringToCheck === reversedString) {
-        return true;
-    }else{
-        return false;
-    }
+    return (stringToCheck === reversedString);
 }
-//----------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
 //FindLongestWord
 
 const findLongestWord = (sentence) => {
@@ -63,7 +55,7 @@ const findLongestWord = (sentence) => {
     return longestWord[0];
 }
 
-//----------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //Mapi
 
 const Mapi = function([[key1, value1], [key2, value2]]) {
@@ -100,126 +92,64 @@ const Mapi = function([[key1, value1], [key2, value2]]) {
     }
 }
 
-// const myMapi = new Mapi([[1, 'Begonia'], [2, 'Rosier']]);
-//  const myOtherMapi = new Mapi([[1, 'chat'], [3, 'tamanoir']]);
-// console.log('Test Mapi : ')
-// console.log(myMapi);
-//  console.log(myOtherMapi);
-// myOtherMapi.set(2, 'chien');
-// console.log(myOtherMapi);
-// myOtherMapi.set(2, 'tamanoir');
-// console.log(myOtherMapi);
-// myOtherMapi.set(3, 'opossum');
-// console.log(myOtherMapi);
-// myOtherMapi.delete(2);
-// console.log(myOtherMapi);
-//
-// console.log('[{1: Begonia}, {2: Rosier}]');
-//----------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //Prop access -- bonus
 
-//----------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //Type check
 
 const type_check_v1 = (value, type) => {
     return (typeof value === type);
 }
-// console.log('Test type_check_v1 : ');
-// console.log(type_check_v1(1, 'number'));
-// console.log(type_check_v1('toto', 'number'));
 
-//----------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //Type check V2
 
 const type_check_v2 = (value, type, array) => {
     return (type_check_v1(value, type) && array.includes(value));
 }
-// console.log('Test Type_check_v2 : ');
-// console.log(type_check_v2(3, 'number', [1, 2, 3]));
-// console.log(type_check_v2(3, 'string', [1, 2, 3]));
 
-//----------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //PARTIE II
-//----------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //Hash tag
 
-const sentence = 'How the Avocado Became the Fruit of the Global Trade';
-
 const getHashTags = (sentence) => {
-    var words = sentence.split(' ').sort(function (a, b) {
-        return b.length - a.length;
-    });
-
-    var threeLongestWords = [words[0], words[1], words[2]];
-
-    return hashtags = threeLongestWords.map(word => `#${word}`);
+    return sentence.split(' ')
+        .sort(function (a, b) {return b.length - a.length;})
+        .splice(0,3)
+        .map(word=> `#${word}`);
 }
-// console.log('Test Hashtags : ');
-// console.log(getHashTags('How the Avocado Became the Fruit of the Global Trade'));
-// console.log(getHashTags('The Helicopter Is Yellow and Greenish'));
 
-//----------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //RemoveDuplicates
-
-const array1 = [0, 2, 4, 6, 8, 8];
 
 const removeDuplicates = (array) => { return [...new Set(array)]; }
 
-// console.log('Test Remove Duplicates : ')
-// console.log(removeDuplicates(array1));
-
-//----------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //Intersection
-
-const array2 = [1, 2, 3, 4, 5, 6];
 
 const intersection = (array1, array2) => {
     return filteredArray = array1.filter(value => array2.includes(value));
 }
 
-// console.log('Test intersection : ')
-// console.log(intersection(array1, array2));
-
-//----------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //Arraydiff
-
 const arrayDiff = (array1, array2) => {
     const firstFiltrationArray = array1.filter(value => !array2.includes(value));
     const secondFiltrationArray = array2.filter(value => !array1.includes(value));
     const filteredArray = [...firstFiltrationArray, ...secondFiltrationArray];
     return removeDuplicates(filteredArray);
 }
-// console.log('Test ArrayDiff : attendu [0, 1, 3, 5, 8]')
-// console.log(arrayDiff(array1, array2));
 
-//----------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //Combination
-
-//const array = [2, 12, 2];
-
-// function multiplicates(array) {
-//     let multiplicator = 1;
-//     let result = 1;
-//
-//     for (let i = 0; i < array.length ; i++) {
-//         let operande = array[i];
-//         result = operande * multiplicator;
-//         multiplicator = result;
-//     }
-//     return result;
-// }
-
 
 function combination(...numbers) {
     return numbers.reduce((accumulator, currentValue) => accumulator * currentValue);
 }
 
-//console.log('Test combination : ');
-//console.log(multiplicates(array));
-
-// console.log('Test Combination - reducer : ');
-// console.log(combination(2, 12, 2, 2));
-//----------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //Fiscal Code
 
 const Person = function(name, surname, gender, dob) {
@@ -233,7 +163,7 @@ const matt = new Person("Matt", "Edabit", "M", "1/1/1900");
 const helen = new Person("Helen", "Yu", "F", "1/12/1950");
 const mickey = new Person("Mickey", "Mouse", "M", "16/1/1928");
 
-//REGEX + CONSTANT VARIABLES-----------------------------------------------
+//REGEX + CONSTANT VARIABLES---------------------------------------------------
 const regexVowels = /[AEIOU]/g;
 const regexConsonants = /[BCDFGHJKLMNPQRSTVWXYZ]/g;
 const xLetters=['X','X'];
@@ -248,6 +178,7 @@ const createSurnameAndNameCode = (array) => {
     return array.slice(0,expectedLengthOfSurnameAndNameCode).join('');
 }
 
+//CODE FROM NAME GENERATION----------------------------------------------------
 const generateCodeFromName = (name) => {
     let nameConsonants = transformToUpperCaseElementsThatMatchWithRegex(name, regexConsonants);
     if (nameConsonants.length > 3) {
@@ -261,6 +192,7 @@ const generateCodeFromName = (name) => {
     return createSurnameAndNameCode(processedName);
 }
 
+//CODE FROM SURNAME GENERATION-------------------------------------------------
 const generateCodeFromSurname = (surname) => {
     const processedSurname = transformToUpperCaseElementsThatMatchWithRegex(surname, regexConsonants)
         .concat(transformToUpperCaseElementsThatMatchWithRegex(surname, regexVowels))
@@ -269,6 +201,7 @@ const generateCodeFromSurname = (surname) => {
     return createSurnameAndNameCode(processedSurname);
 }
 
+//CODE FROM DOB DEPENDING ON GENRE GENERATION----------------------------------
 const generateCodeFromBOBAndGender = (dob, gender) => {
     const splitDOB = dob.split('/');
     const dateOfBirth = new Date(splitDOB[2], (splitDOB[1]-1), splitDOB[0]);
@@ -302,6 +235,7 @@ const generateCodeFromBOBAndGender = (dob, gender) => {
 
     return yearCode.concat(monthCode).concat(genderDependantDayCode);
 }
+//FISCAL CODE GENERATION-------------------------------------------------------
 
 const fiscalCode = (person) => {
     return generateCodeFromSurname(person.surname)
@@ -309,16 +243,7 @@ const fiscalCode = (person) => {
         .concat(generateCodeFromBOBAndGender(person.dob, person.gender));
 }
 
-console.log('test fiscalCode : ');
-console.log('Matt : ');
-console.log(fiscalCode(matt));
-console.log('Helen : ');
-console.log(fiscalCode(helen));
-console.log('Mickey : ');
-console.log(fiscalCode(mickey));
-
-
-//----------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //Least Common Multiple
 
 const gcd = (a, b) => {
@@ -336,12 +261,51 @@ const ppcm = (a, b) => {
 const lcm = (...numbers) => {
     return numbers.reduce((accumulator, currentValue) => ppcm(accumulator, currentValue));
 }
-console.log(lcm(1,2,3,4,5,6));
-//console.log(gcd(60,36));
-//console.log(ppcm(420,8));
-//----------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
 //Merge -- bonus
 
-//----------------------------------------------------------------------
+// const object1 = {
+//     a: [{x: 2}, {y: 4}],
+//     b: 1
+// }
+//
+// const object2 = {
+//     a: {z: 3},
+//     b: [2,3],
+//     c: 'foo'
+// }
+
+const merge = (...objectsToMerge) => {
+    let target = {};
+    // Merge the object into the target object
+    let merger = (object) => {
+        for (let prop in object) {
+            if (object.hasOwnProperty(prop)) {
+                //If the prop contains an object
+                if (Object.prototype.toString.call(object[prop]) === '[object Object]'){
+                    // If we're doing a deep merge
+                    // and the property is an object
+                    target[prop] = merge(target[prop], object[prop]);
+                }else if (Array.isArray(prop)){
+                    //If the prop contains an array
+                    target[prop] = [].concat(object[prop]);
+                } else {
+                    // Otherwise, do a regular merge
+                    target[prop] = object[prop];
+                }
+            }
+        }
+    };
+
+    //Loop through each object and conduct a merge
+    for (let i = 0; i < objectsToMerge.length; i++) {
+        merger(objectsToMerge[i]);
+    }
+    return target;
+}
+// console.log(merge(object1, object2));
+
+///-----------------------------------------------------------------------------
 //Comments filter -- bonus
 
