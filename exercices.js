@@ -65,19 +65,6 @@ const findLongestWord = (sentence) => {
 
 //----------------------------------------------------------------------
 //Mapi
-class Mapy {
-    constructor([[key1, value1], [key2, value2]]) {
-        this.mapyArray = [[key1, value1], [key2, value2]];
-
-        this.mapyObject = Object.fromEntries(this.mapyArray);
-    }
-
-
-}
-
-
-
-
 
 const Mapi = function([[key1, value1], [key2, value2]]) {
     this.array = [[key1, value1], [key2, value2]];
@@ -113,11 +100,21 @@ const Mapi = function([[key1, value1], [key2, value2]]) {
     }
 }
 
-const myMapi = new Mapi([[1, 'Begonia'], [2, 'Rosier']]);
-
-console.log('Test Mapi : ')
-console.log(myMapi);
-console.log('[{1: Begonia}, {2: Rosier}]');
+// const myMapi = new Mapi([[1, 'Begonia'], [2, 'Rosier']]);
+//  const myOtherMapi = new Mapi([[1, 'chat'], [3, 'tamanoir']]);
+// console.log('Test Mapi : ')
+// console.log(myMapi);
+//  console.log(myOtherMapi);
+// myOtherMapi.set(2, 'chien');
+// console.log(myOtherMapi);
+// myOtherMapi.set(2, 'tamanoir');
+// console.log(myOtherMapi);
+// myOtherMapi.set(3, 'opossum');
+// console.log(myOtherMapi);
+// myOtherMapi.delete(2);
+// console.log(myOtherMapi);
+//
+// console.log('[{1: Begonia}, {2: Rosier}]');
 //----------------------------------------------------------------------
 //Prop access -- bonus
 
@@ -125,23 +122,21 @@ console.log('[{1: Begonia}, {2: Rosier}]');
 //Type check
 
 const type_check_v1 = (value, type) => {
-    if (typeof value === type) {
-        return true;
-    }else{
-        return false;
-    }
+    return (typeof value === type);
 }
+// console.log('Test type_check_v1 : ');
+// console.log(type_check_v1(1, 'number'));
+// console.log(type_check_v1('toto', 'number'));
 
 //----------------------------------------------------------------------
 //Type check V2
 
 const type_check_v2 = (value, type, array) => {
-    if(type_check_v1(value, type) && array.includes(value)) {
-        return true;
-    }else{
-        return false;
-    }
+    return (type_check_v1(value, type) && array.includes(value));
 }
+// console.log('Test Type_check_v2 : ');
+// console.log(type_check_v2(3, 'number', [1, 2, 3]));
+// console.log(type_check_v2(3, 'string', [1, 2, 3]));
 
 //----------------------------------------------------------------------
 //PARTIE II
@@ -159,9 +154,9 @@ const getHashTags = (sentence) => {
 
     return hashtags = threeLongestWords.map(word => `#${word}`);
 }
-console.log('Test Hashtags : ');
-console.log(getHashTags('How the Avocado Became the Fruit of the Global Trade'));
-console.log(getHashTags('The Helicopter Is Yellow and Greenish'));
+// console.log('Test Hashtags : ');
+// console.log(getHashTags('How the Avocado Became the Fruit of the Global Trade'));
+// console.log(getHashTags('The Helicopter Is Yellow and Greenish'));
 
 //----------------------------------------------------------------------
 //RemoveDuplicates
@@ -169,8 +164,9 @@ console.log(getHashTags('The Helicopter Is Yellow and Greenish'));
 const array1 = [0, 2, 4, 6, 8, 8];
 
 const removeDuplicates = (array) => { return [...new Set(array)]; }
-console.log('Test Remove Duplicates : ')
-console.log(removeDuplicates(array1));
+
+// console.log('Test Remove Duplicates : ')
+// console.log(removeDuplicates(array1));
 
 //----------------------------------------------------------------------
 //Intersection
@@ -181,8 +177,8 @@ const intersection = (array1, array2) => {
     return filteredArray = array1.filter(value => array2.includes(value));
 }
 
-console.log('Test intersection : ')
-console.log(intersection(array1, array2));
+// console.log('Test intersection : ')
+// console.log(intersection(array1, array2));
 
 //----------------------------------------------------------------------
 //Arraydiff
@@ -193,8 +189,8 @@ const arrayDiff = (array1, array2) => {
     const filteredArray = [...firstFiltrationArray, ...secondFiltrationArray];
     return removeDuplicates(filteredArray);
 }
-console.log('Test ArrayDiff : attendu [0, 1, 3, 5, 8]')
-console.log(arrayDiff(array1, array2));
+// console.log('Test ArrayDiff : attendu [0, 1, 3, 5, 8]')
+// console.log(arrayDiff(array1, array2));
 
 //----------------------------------------------------------------------
 //Combination
@@ -221,11 +217,79 @@ function combination(...numbers) {
 //console.log('Test combination : ');
 //console.log(multiplicates(array));
 
-console.log('Test Combination - reducer : ');
-console.log(combination(2, 12, 2, 2));
+// console.log('Test Combination - reducer : ');
+// console.log(combination(2, 12, 2, 2));
 //----------------------------------------------------------------------
 //Fiscal Code
 
+const Person = function(name, surname, gender, dob) {
+    this.name = name;
+    this.surname = surname;
+    this.gender = gender;
+    this.dob = dob;
+}
+
+const matt = new Person("Matt", "Edabit", "M", "1/1/1900");
+const helen = new Person("Helen", "Yu", "F", "1/12/1950");
+const mickey = new Person("Mickey", "Mouse", "M", "12/1/1928");
+
+const fiscalCode = (person) => {
+    //REGEX + CONSTANT VARIABLES-----------------------------------------------
+    const regexVowels = /[AEIOU]/g;
+    const rexepConsonants = /[BCDFGHJKLMNPQRSTVWXYZ]/g;
+    const xLetters=['X','X'];
+    const surname = person.surname;
+    const name = person.name;
+
+    //FUNCTIONS----------------------------------------------------------------
+    const makeAnArrayOfConsonants = (word) => {
+        const consonants = word.toUpperCase().match(rexepConsonants);
+        return consonants;
+    }
+
+    const makeAnArrayOfVowels = (word) => {
+        const vowels = word.toUpperCase().match(regexVowels);
+        return vowels;
+    }
+
+    const createSurnameAndNameCode = (array) => {
+        const code = [array[0], array[1], array[2]].join('');
+        return code;
+    }
+
+    //SURNAME------------------------------------------------------------------
+    const processedSurname = makeAnArrayOfConsonants(surname)
+        .concat(makeAnArrayOfVowels(surname))
+        .concat(xLetters);
+
+    const surnameCode = createSurnameAndNameCode(processedSurname);
+
+    console.log(`code nom de famille : ${surnameCode}`);
+
+    //NAME---------------------------------------------------------------------
+    let nameConsonants = makeAnArrayOfConsonants(name);
+    if (nameConsonants.length > 3) {
+        nameConsonants = [nameConsonants[0], nameConsonants[2], nameConsonants[3]];
+    }
+    // console.log(`consonnes du prénom 1, 3 et 4 : ${nameConsonants}`);
+
+    const processedName = nameConsonants.concat(makeAnArrayOfVowels(name)).concat(xLetters);
+    const nameCode = createSurnameAndNameCode(processedName);
+    console.log(`code prenom : ${nameCode}`);
+
+    //FISCAL CODE--------------------------------------------------------------
+    const fiscalCode = surnameCode + nameCode;
+    console.log(`fiscalCode : ${fiscalCode}`);
+
+}
+
+console.log('test fiscalCode : ');
+console.log('Matt : ');
+console.log(fiscalCode(matt));
+console.log('Helen : ');
+console.log(fiscalCode(helen));
+console.log('Mickey : ');
+console.log(fiscalCode(mickey));
 
 
 //----------------------------------------------------------------------
